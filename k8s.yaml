@@ -50,7 +50,7 @@ apiVersion: route.openshift.io/v1
 metadata:
   name: greet-service
 spec:
-  host: greet-service.OC_URL
+  host: greet-service.apps.OC_URL
   to:
     kind: Service
     name: greet-service
