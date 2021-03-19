@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: greet-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: greet-service
+  template:
+    metadata:
+      labels:
+        app: greet-service
+        version: IMAGE_LABEL
+    spec:
+      containers:
+      - name: greet-service
+        livenessProbe:
+          httpGet:
+            path: /health/live
+            port: http
+          initialDelaySeconds: 10
+          periodSeconds: 60
+        readinessProbe:
+          httpGet:
+            path: /health/ready
+            port: http
+          initialDelaySeconds: 10
+          periodSeconds: 120
+      
+        image: DOCKER_USERNAME/greet-service:IMAGE_LABEL
+        ports:
+        - containerPort: 80
+        resources: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: greet-service
+spec:
+  type: NodePort
+  selector:
+    app: greet-service
+  ports:
+  - port: 80
+    targetPort: 80
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: greet-service
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing
+spec:
+  rules:
+  - host: greet-service.K8S_URL
+    http:
+      paths:
+      - backend:
+          serviceName: greet-service
+          servicePort: 80
+        path: /
