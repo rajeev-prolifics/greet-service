@@ -30,7 +30,7 @@ spec:
       
         image: DOCKER_USERNAME/greet-service:IMAGE_LABEL
         ports:
-        - containerPort: 80
+        - containerPort: 8080
         resources: {}
 ---
 apiVersion: v1
@@ -43,20 +43,20 @@ spec:
     app: greet-service
   ports:
   - port: 80
-    targetPort: 80
+    targetPort: 8080
 ---
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: greet-service
 spec:
-  host: greet-service.apps.OC_URL
+  host: greet-service-NAME_SPACE.apps.OC_URL
   to:
     kind: Service
     name: greet-service
     weight: 100
   port:
-    targetPort: 80
+    targetPort: 8080
   wildcardPolicy: None
 #---
 #apiVersion: networking.k8s.io/v1beta1
@@ -72,5 +72,5 @@ spec:
 #      paths:
 #      - backend:
 #          serviceName: greet-service
-#          servicePort: 80
+#          servicePort: 8080
 #        path: /
