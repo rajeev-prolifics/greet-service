@@ -54,4 +54,9 @@ public class GreetController {
 		return response;
     }
 	
+	@RequestMapping(method=RequestMethod.GET)
+	public @ResponseBody String ping(){
+		return "Server is up!";
+    }
+	
 }
