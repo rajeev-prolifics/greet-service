@@ -45,18 +45,32 @@ spec:
   - port: 80
     targetPort: 80
 ---
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
+kind: Route
+apiVersion: route.openshift.io/v1
 metadata:
   name: greet-service
-  annotations:
-    kubernetes.io/ingress.class: addon-http-application-routing
 spec:
-  rules:
-  - host: greet-service.K8S_URL
-    http:
-      paths:
-      - backend:
-          serviceName: greet-service
-          servicePort: 80
-        path: /
+  host: greet-service.OC_URL
+  to:
+    kind: Service
+    name: greet-service
+    weight: 100
+  port:
+    targetPort: 80
+  wildcardPolicy: None
+#---
+#apiVersion: networking.k8s.io/v1beta1
+#kind: Ingress
+#metadata:
+#  name: greet-service
+#  annotations:
+#    kubernetes.io/ingress.class: addon-http-application-routing
+#spec:
+#  rules:
+#  - host: greet-service.K8S_URL
+#    http:
+#      paths:
+#      - backend:
+#          serviceName: greet-service
+#          servicePort: 80
+#        path: /
