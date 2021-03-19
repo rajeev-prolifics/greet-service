@@ -15,19 +15,6 @@ spec:
     spec:
       containers:
       - name: greet-service
-        livenessProbe:
-          httpGet:
-            path: /health/live
-            port: http
-          initialDelaySeconds: 10
-          periodSeconds: 60
-        readinessProbe:
-          httpGet:
-            path: /health/ready
-            port: http
-          initialDelaySeconds: 10
-          periodSeconds: 120
-      
         image: DOCKER_USERNAME/greet-service:IMAGE_LABEL
         ports:
         - containerPort: 8080
