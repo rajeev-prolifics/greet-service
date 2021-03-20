@@ -11,7 +11,7 @@ This is a small Spring Boot microservice demo which exposes a basic REST API.
 
 # Build
 1.	Run Maven command : *mvn clean package*
-2.	Create a Docker Image : *docker build -t <image-name>:<tag-name> .*
+2.	Create a Docker Image : *docker build -t image-name:tag-name .*
 
 # CI/CD
 The Project is enabled with GITHub Actions CI-CD Workflow. Refer file .github/workflows/main.yml for details. The Workflow steps are:
