@@ -48,7 +48,7 @@ public class GreetController {
 	public @ResponseBody Map<String,String> greet(@PathVariable String username){
 		logger.info("Entering GreetController.greet() method.");
 		Map<String,String> response = new HashMap<String,String>();
-		response.put("message", "Hi "+username+", Welcome to Greet API.");
+		response.put("message", "Hi "+username+", Welcome to Greet API!");
 		response.put("quote", GreetHelper.getRandomQuote());
 		logger.info("Exiting GreetController.greet() method.");
 		return response;
